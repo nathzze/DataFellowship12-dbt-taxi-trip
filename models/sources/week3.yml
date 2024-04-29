@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: week3 
+    description: 'dataset name in bigquery' 
+    tables:
+      - name: raw_taxi_tripdata
+        description: 'data source : https://www.kaggle.com/datasets/anandaramg/taxi-trip-data-nyc?select=taxi_tripdata.csv'
+      

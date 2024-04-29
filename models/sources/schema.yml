@@ -1,0 +1,64 @@
+version: 2
+
+models:
+  - name: monthly_total_passengers
+    description: This model calculates the total number of passengers for each month using the NYC Taxi Trip data.
+    columns:
+      - name: month_name
+        description: The name of the month when the trip occurred.
+        tests:
+          - not_null
+          - accepted_values:  # Indentation moved one level up
+              values: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+      - name: total_passengers
+        description: "The total number of passengers for the corresponding month."
+        tests:
+          - not_null
+
+
+  - name: monthly_transactions_per_payment_type
+    description: "This model calculates the number of transactions per payment type each month using the NYC Taxi Trip data."
+    columns:
+      - name: payment_type_name
+        description: "The name of the payment type used by passengers for the trip. Possible values are 'Credit card,' 'Cash,' 'No charge,' 'Dispute,' 'Unknown,' and 'Voided trip.'"
+        tests:
+          - not_null
+          - accepted_values:  # Indentation moved one level up
+              values: ['Credit card', 'Cash', 'No charge', 'Dispute', 'Unknown', 'Voided trip']
+      - name: month
+        description: "The month when the transactions occurred."
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 1
+              max_value: 12
+      - name: monthly_transactions_per_payment_type
+        description: "The count of transactions for a specific payment type in a particular month."
+        tests:
+          - not_null
+      - name: amount_idr
+        description: "monthly_transactions_per_payment_type that has been converted from dollar to idr"
+        tests:
+          - not_null
+
+
+  - name: monthly_trip_distance_per_rate_code
+    description: "This model calculates the total trip distance per rate code each month using the NYC Taxi Trip data."
+    columns:
+      - name: month_name
+        description: "The name of the month when the trip occurred."
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+      - name: rate_code_name
+        description: "The description of the rate code."
+        tests:
+          - is_valid_rate_code
+          - not_null
+          - accepted_values:
+              values: ["Standard rate", "JFK", "Newark", "Nassau or Westchester", "Negotiated fare", "Group ride"]
+      - name: total_trip_distance
+        description: "The total trip distance in miles for the specified month and rate code."
+        tests:
+          - not_null
