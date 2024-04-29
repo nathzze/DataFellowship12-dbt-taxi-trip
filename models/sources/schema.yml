@@ -8,7 +8,7 @@ models:
         description: The name of the month when the trip occurred.
         tests:
           - not_null
-          - accepted_values:  # Indentation moved one level up
+          - accepted_values: 
               values: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
       - name: total_passengers
         description: "The total number of passengers for the corresponding month."
@@ -23,7 +23,7 @@ models:
         description: "The name of the payment type used by passengers for the trip. Possible values are 'Credit card,' 'Cash,' 'No charge,' 'Dispute,' 'Unknown,' and 'Voided trip.'"
         tests:
           - not_null
-          - accepted_values:  # Indentation moved one level up
+          - accepted_values: 
               values: ['Credit card', 'Cash', 'No charge', 'Dispute', 'Unknown', 'Voided trip']
       - name: month
         description: "The month when the transactions occurred."
